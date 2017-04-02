@@ -5,6 +5,19 @@
       "subfolder": "config",
       "initiFileName": "config"
     }
+  ],
+  "doc" : [
+    {
+      "format" : "odt",
+      "subfolder": "doc",
+      "initiFileName": "doc"
+    }
+  ],
+  "test" : [
+    {
+      "format" : "csv",
+      "subfolder": "test",
+      "initiFileName": "test"
+    }
   ]
-
 }
