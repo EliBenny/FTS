@@ -1,4 +1,5 @@
 import json
+import os
 from os.path import join
 
 
@@ -41,3 +42,10 @@ class CBase:
                     configGlobal['test'][0]['initiFileName'] + className +
                     "." + configGlobal['test'][0]['format']
                 )
+        # project root path
+        #self.rootDir = os.path.dirname(os.path.abspath(__file__))  # This is your Project Root
+        self.rootDir = os.path.dirname(os.path.abspath(configGlobal['entryModule']))  # This is your Project Root
+        # data path
+        s = os.path.split(os.path.dirname(os.path.abspath(configGlobal['entryModule'])))
+        self.pathData = join(s.__getitem__(0), configGlobal['dataDir'])
+

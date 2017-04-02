@@ -1,4 +1,6 @@
 {
+  "dataDir": "Data",
+  "entryModule": "main.py",
   "config" : [
     {
       "format" : "json",
