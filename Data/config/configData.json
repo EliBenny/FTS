@@ -1,5 +1,10 @@
 {
   "fileNamePic" : "dataFixed.csv",
   "fileNameClass" : "class.csv",
-  "ratioTest" : "0.3"
+  "ratioTest" : "0.3",
+  "delimiter": ",",
+  "skipRows": "1",
+  "refresh": "false",
+  "bufferTest": "bufferTest.json",
+  "bufferTraining": "bufferTraining.json"
 }

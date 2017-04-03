@@ -26,7 +26,13 @@ class CBase:
             self.config = json.load(data_file)
 
         # address doc path
-        self.docPath = \
+        docRoot = \
+            join \
+                (
+                  className, configGlobal['doc'][0]['subfolder'],
+                  configGlobal['doc'][0]['initiFileName']
+                )
+        docPath = \
             join \
                 (
                    className, configGlobal['doc'][0]['subfolder'],
@@ -35,7 +41,13 @@ class CBase:
                 )
 
         # address test path
-        self.testPath = \
+        testRoot = \
+            join \
+                (
+                   className, configGlobal['test'][0]['subfolder'],
+                   configGlobal['test'][0]['initiFileName']
+                )
+        testPath = \
             join \
                     (
                     className, configGlobal['test'][0]['subfolder'],
@@ -43,9 +55,14 @@ class CBase:
                     "." + configGlobal['test'][0]['format']
                 )
         # project root path
-        #self.rootDir = os.path.dirname(os.path.abspath(__file__))  # This is your Project Root
-        self.rootDir = os.path.dirname(os.path.abspath(configGlobal['entryModule']))  # This is your Project Root
+        rootDir = os.path.dirname(os.path.abspath(configGlobal['entryModule']))  # This is your Project Root
         # data path
         s = os.path.split(os.path.dirname(os.path.abspath(configGlobal['entryModule'])))
-        self.pathData = join(s.__getitem__(0), configGlobal['dataDir'])
+        pathData = join(s.__getitem__(0), configGlobal['dataDir'])
 
+        pathes = \
+            {
+                "config": configPath, "docRoot": docRoot, "docPath": docPath, "testRoot": testRoot,
+                "testPath": testPath, "rootDir": rootDir, "data": pathData
+            }
+        self.pathes = pathes
