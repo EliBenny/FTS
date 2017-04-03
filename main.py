@@ -2,10 +2,12 @@ from Data.src.CData import CData
 import matplotlib as plt
 from PIL import Image
 import numpy as np
+from SmileRecog.src.CSmileRecog import CSmileRecog
 
 def main():
 
-
+    model = CSmileRecog()
+    model.Build()
     '''
     # simple check
     data = CData()
