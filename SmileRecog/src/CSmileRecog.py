@@ -25,9 +25,9 @@ class CSmileRecog(CBase):
         inputShape = (self.x.shape[1], self.x.shape[2], 1)
 
         model = Sequential()
-        model.add(Conv2D(12, kernel_size = (3, 3), activation = 'relu', input_shape = inputShape))
-        model.add(Conv2D(16, (3, 3), activation = 'relu'))
-        model.add(MaxPooling2D(pool_size = (2, 2)))
+        model.add(Conv2D(5, kernel_size = (4, 4), activation = 'relu', input_shape = inputShape))
+        model.add(Conv2D(5, (4, 4), activation = 'relu'))
+        model.add(MaxPooling2D(pool_size = (8, 8)))
         model.add(Dropout(0.25))
         model.add(Flatten())
         model.add(Dense(int(self.config["batchSize"]), activation = 'relu'))
@@ -43,13 +43,13 @@ class CSmileRecog(CBase):
 
         model.fit\
             (
-                self.x, y, batch_size = self.config["batchSize"],
+                self.x, y, batch_size = int(self.config["batchSize"]),
                 epochs = int(self.config["epochs"]),
                 verbose = int(self.config["verbose"]),
-                validation_data=(self.xTest, self.yTest)
+                validation_data=(self.xTest, yTest)
             )
 
-        score = model.evaluate(self.xTest, yTest, verbose = 0)
+        score = model.evaluate(self.xTest, yTest, verbose = int(self.config["verbose"]))
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
 
