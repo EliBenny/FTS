@@ -20,18 +20,28 @@ class CSmileRecog(CBase):
         self.DataPreprocessing()
 
     def Build(self):
-        y = keras.utils.to_categorical(self.y * self.w, int(self.config["classCount"]))
-        yTest = keras.utils.to_categorical(self.yTest * self.wTest, int(self.config["classCount"]))
+        y = keras.utils.to_categorical(self.y , int(self.config["classCount"]))
+        yTest = keras.utils.to_categorical(self.yTest , int(self.config["classCount"]))
         inputShape = (self.x.shape[1], self.x.shape[2], 1)
 
         model = Sequential()
-        model.add(Conv2D(5, kernel_size = (4, 4), activation = 'relu', input_shape = inputShape))
-        model.add(Conv2D(5, (4, 4), activation = 'relu'))
-        model.add(MaxPooling2D(pool_size = (8, 8)))
-        model.add(Dropout(0.25))
+        # face blobbing
+        model.add(Conv2D(5, kernel_size = (1, 1), activation = 'relu', input_shape = inputShape))
+        #model.add(MaxPooling2D(pool_size=(4, 4)))
+
+        # features extraction
+        model.add(Conv2D(12, (4, 4), activation = 'relu'))
+        model.add(MaxPooling2D(pool_size = (2, 2)))
+
+        # Significant features weighting
+        model.add(Dropout(0.05))
+        model.add(Conv2D(12, (4, 4), activation = 'relu'))
+        model.add(MaxPooling2D(pool_size = (2, 2)))
+
+        model.add(Dropout(0.15))
         model.add(Flatten())
         model.add(Dense(int(self.config["batchSize"]), activation = 'relu'))
-        model.add(Dropout(0.5))
+        model.add(Dropout(0.15))
         model.add(Dense(int(self.config["classCount"]), activation = 'softmax'))
 
         model.compile\
@@ -46,7 +56,7 @@ class CSmileRecog(CBase):
                 self.x, y, batch_size = int(self.config["batchSize"]),
                 epochs = int(self.config["epochs"]),
                 verbose = int(self.config["verbose"]),
-                validation_data=(self.xTest, yTest)
+                validation_data = (self.xTest, yTest)
             )
 
         score = model.evaluate(self.xTest, yTest, verbose = int(self.config["verbose"]))

@@ -1,5 +1,5 @@
 {
-  "epochs": "1",
+  "epochs": "100",
   "batchSize": "128",
   "classCount": "2",
   "grayLevel": "255",
